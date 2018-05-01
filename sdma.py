@@ -57,21 +57,23 @@ def is_one_word(input_string):
 
 
 def get_neighbours(gensim_model, word, num_neighbours):
-    neighbours = gensim_model.most_similar(positive=word, topn=num_neighbours)
-    neighbours = [tup[0] for tup in neighbours if is_one_word(tup[0])]
+    neighbours = []
+    if word in gensim_model.vocab:
+        neighbours = gensim_model.most_similar(positive=word, topn=num_neighbours)
+        neighbours = [tup[0] for tup in neighbours if is_one_word(tup[0])]
     return neighbours
 
 
 def calculate_sdma(compound_to_substitute, corpus_in_counts):
     results = {}
-    for k, v in compound_to_substitute.iteritems():
+    for k, v in compound_to_substitute.items():
         results[k] = sdma_1(v, corpus_in_counts)
     return results
 
 
 def sdma_1(substitute, corpus_in_counts):
-    p = sigma([substitute.compound], corpus_in_counts, 1)/float(corpus_in_counts.N + corpus_in_counts.V)
-    p_of_m = sigma(substitute.modifier_alts, corpus_in_counts, 1)/float(corpus_in_counts.N + corpus_in_counts.V)
+    p = sigma([substitute.compound], corpus_in_counts, 1)/float(corpus_in_counts.Nb + corpus_in_counts.Vb)
+    p_of_m = sigma(substitute.modifier_alts, corpus_in_counts, 1)/float(corpus_in_counts.Nb + corpus_in_counts.Vb)
     sdma = math.log(p/float(p_of_m))
     return sdma
 
@@ -84,6 +86,7 @@ def sigma(compounds, corpus_in_counts, smooth=False):
             if smooth:
                 sigma_frequency += smooth
     return sigma_frequency
+
 
 
 
