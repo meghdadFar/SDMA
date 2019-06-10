@@ -1,5 +1,12 @@
-# Substitution-driven Measures of Association (SDMAs)
+# Substitution-driven Measures of Association (SDMAs) for extracting collocations
 
 
-A python implementation of Substitution-driven Measures of Association (SDMAs) presented in the Chapter 4 of PhD dissertation: 
-[Computational models of learning the idiosyncrasy of multiword expressions](https://archive-ouverte.unige.ch/unige:96989)
+
+SDMAs can be used as an alternative to measures such as PMI and Chi-squared in order to identify collocations 
+in a corpus of text. 
+
+## 
+
+## Description
+
+1 - [Simple Sentiment Analysis](notebook)
